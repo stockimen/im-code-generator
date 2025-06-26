@@ -3,6 +3,8 @@ package com.im.maker.generator.main;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
+import com.im.maker.generator.JarGenerator;
+import com.im.maker.generator.ScriptGenerator;
 import com.im.maker.generator.file.DynamicFileGenerator;
 import com.im.maker.meta.Meta;
 import com.im.maker.meta.MetaManager;
@@ -13,7 +15,7 @@ import java.io.IOException;
 
 public class MainGenerator {
 
-    public static void main(String[] args) throws TemplateException, IOException {
+    public static void main(String[] args) throws TemplateException, IOException, InterruptedException {
         Meta meta = MetaManager.getMetaObject();
         System.out.println(meta);
 
@@ -67,6 +69,35 @@ public class MainGenerator {
         outputFilePath = outputBaseJavaPackagePath + "/Main.java";
         DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
 
+        // generator.DynamicGenerator
+        inputFilePath = inputResourcePath + File.separator + "templates/java/generator/DynamicGenerator.java.ftl";
+        outputFilePath = outputBaseJavaPackagePath + "/generator/DynamicGenerator.java";
+        DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
+
+        // generator.MainGenerator
+        inputFilePath = inputResourcePath + File.separator + "templates/java/generator/MainGenerator.java.ftl";
+        outputFilePath = outputBaseJavaPackagePath + "/generator/MainGenerator.java";
+        DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
+
+        // generator.StaticGenerator
+        inputFilePath = inputResourcePath + File.separator + "templates/java/generator/StaticGenerator.java.ftl";
+        outputFilePath = outputBaseJavaPackagePath + "/generator/StaticGenerator.java";
+        DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
+
+
+        // pom.xml
+        inputFilePath = inputResourcePath + File.separator + "templates/pom.xml.ftl";
+        outputFilePath = outputPath + File.separator + "pom.xml";
+        DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
+
+        // 构建 jar 包
+        JarGenerator.doGenerate(outputPath);
+
+        // 封装脚本
+        String shellOutputFilePath = outputPath + File.separator + "generator";
+        String jarName = String.format("%s-%s-jar-with-dependencies.jar", meta.getName(), meta.getVersion());
+        String jarPath = "target/" + jarName;
+        ScriptGenerator.doGenerate(shellOutputFilePath, jarPath);
 
     }
 }

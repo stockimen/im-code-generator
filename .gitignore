@@ -2,6 +2,7 @@
 .idea
 Project-Code-Generator.iml
 target
+**/generated
 
 ### IntelliJ IDEA ###
 out/
