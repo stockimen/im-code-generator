@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * 核心生成器
  */
-public class MainGenerator {
+public class FileGenerator {
 
     /**
      * 生成
