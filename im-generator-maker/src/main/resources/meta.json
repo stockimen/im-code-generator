@@ -6,8 +6,9 @@
   "author": "yupi",
   "createTime": "2023-11-22",
   "fileConfig": {
-    "inputRootPath": "D:/Desktop/本学期记录/Project/Project-Code-Generator/yuzi-generator-demo-projects/acm-template-pro",
+    "inputRootPath": ".source/acm-template-pro",
     "outputRootPath": "generated",
+    "sourceRootPath": "D:/Desktop/本学期记录/Project/Project-Code-Generator/yuzi-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
       {
