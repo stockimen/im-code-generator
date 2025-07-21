@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * ACM 输入模板（多数之和）
- * @author yupi（1. 增加作者注释）
+ * @author ${mainTemplate.author!''}
  */
 public class MainTemplate {
     public static void main(String[] args) {
@@ -12,6 +12,10 @@ public class MainTemplate {
 
         // 2. 可选是否循环
 //        while (scanner.hasNext()) {
+
+<#if loop>
+    while (scanner.hasNext()) {
+</#if>
         // 读取输入元素个数
         int n = scanner.nextInt();
 
@@ -31,7 +35,10 @@ public class MainTemplate {
         // 3. 输出信息可以修改
         System.out.println("求和结果: " + sum);
 //        }
-
+        System.out.println("${mainTemplate.outputText!'sum ='}" + sum);
+<#if loop>
+    }
+</#if>
         scanner.close();
     }
 }
