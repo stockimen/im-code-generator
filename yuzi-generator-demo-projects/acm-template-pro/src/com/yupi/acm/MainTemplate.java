@@ -29,7 +29,7 @@ public class MainTemplate {
         }
 
         // 3. 输出信息可以修改
-        System.out.println("求和结果: " + sum);
+        System.out.println("Sum:  " + sum);
 //        }
 
         scanner.close();

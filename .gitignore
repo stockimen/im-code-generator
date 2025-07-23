@@ -3,6 +3,7 @@
 Project-Code-Generator.iml
 target
 **/generated
+**/.temp/
 
 ### IntelliJ IDEA ###
 out/
