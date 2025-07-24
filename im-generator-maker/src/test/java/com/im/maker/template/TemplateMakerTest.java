@@ -59,7 +59,7 @@ public class TemplateMakerTest {
         String originProjectPath = new File(projectPath).getParent() + File.separator + "yuzi-generator-demo-projects/springboot-init";
 
         // 文件参数配置，扫描目录
-        String inputFilePath1 = "src/main/java/com/yupi/springbootinit/common";
+        String inputFilePath1 = "./";
         TemplateMakerFileConfig templateMakerFileConfig = new TemplateMakerFileConfig();
         TemplateMakerFileConfig.FileInfoConfig fileInfoConfig1 = new TemplateMakerFileConfig.FileInfoConfig();
         fileInfoConfig1.setPath(inputFilePath1);

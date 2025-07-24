@@ -133,7 +133,7 @@ public class TemplateMaker {
         }
 
         // 三、生成配置文件
-        String metaOutputPath = sourceRootPath + File.separator + "meta.json";
+        String metaOutputPath = templatePath + File.separator + "meta.json";
 
         // 如果已有 meta 文件，说明不是第一次制作，则在 meta 基础上进行修改
         if (FileUtil.exist(metaOutputPath)) {
@@ -219,8 +219,9 @@ public class TemplateMaker {
 
         // 文件配置信息
         Meta.FileConfig.FileInfo fileInfo = new Meta.FileConfig.FileInfo();
-        fileInfo.setInputPath(fileInputPath);
-        fileInfo.setOutputPath(fileOutputPath);
+        // 注意文件输入路径要和输出路径反转
+        fileInfo.setInputPath(fileOutputPath);
+        fileInfo.setOutputPath(fileInputPath);
         fileInfo.setType(FileTypeEnum.FILE.getValue());
         fileInfo.setGenerateType(FileGenerateTypeEnum.DYNAMIC.getValue());
 
@@ -229,14 +230,14 @@ public class TemplateMaker {
         // 之前不存在模板文件，并且没有更改文件内容，则为静态生成
         if (!hasTemplateFile) {
             if (contentEquals) {
-                // 输出路径 = 输入路径
-                fileInfo.setOutputPath(fileInputPath);
+                // 输入路径没有 FTL 后缀
+                fileInfo.setInputPath(fileInputPath);
                 fileInfo.setGenerateType(FileGenerateTypeEnum.STATIC.getValue());
             } else {
-                // 没有模板文件，需要挖坑，生成模板文件
+                // 没有模板文件，且增加了新坑，生成模板文件
                 FileUtil.writeUtf8String(newFileContent, fileOutputAbsolutePath);
             }
-        } else if (!contentEquals) {
+        }else if (!contentEquals) {
             // 有模板文件，且增加了新坑，生成模板文件
             FileUtil.writeUtf8String(newFileContent, fileOutputAbsolutePath);
         }
@@ -387,8 +388,9 @@ public class TemplateMaker {
             List<Meta.FileConfig.FileInfo> newFileInfoList = new ArrayList<>(tempFileInfoList.stream()
                     .flatMap(fileInfo -> fileInfo.getFiles().stream())
                     .collect(
-                            Collectors.toMap(Meta.FileConfig.FileInfo::getInputPath, o -> o, (e, r) -> r)
+                            Collectors.toMap(Meta.FileConfig.FileInfo::getOutputPath, o -> o, (e, r) -> r)
                     ).values());
+
 
             // 使用新的 group 配置
             Meta.FileConfig.FileInfo newFileInfo = CollUtil.getLast(tempFileInfoList);
