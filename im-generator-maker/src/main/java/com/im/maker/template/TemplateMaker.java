@@ -13,6 +13,7 @@ import com.im.maker.meta.enums.FileTypeEnum;
 import com.im.maker.template.enums.FileFilterRangeEnum;
 import com.im.maker.template.enums.FileFilterRuleEnum;
 import com.im.maker.template.model.FileFilterConfig;
+import com.im.maker.template.model.TemplateMakerConfig;
 import com.im.maker.template.model.TemplateMakerFileConfig;
 import com.im.maker.template.model.TemplateMakerModelConfig;
 
@@ -411,5 +412,22 @@ public class TemplateMaker {
                 ).values()));
         return resultList;
     }
+
+    /**
+     * 制作模板
+     *
+     * @param templateMakerConfig
+     * @return
+     */
+    public static long makeTemplate(TemplateMakerConfig templateMakerConfig) {
+        Meta meta = templateMakerConfig.getMeta();
+        String originProjectPath = templateMakerConfig.getOriginProjectPath();
+        TemplateMakerFileConfig templateMakerFileConfig = templateMakerConfig.getFileConfig();
+        TemplateMakerModelConfig templateMakerModelConfig = templateMakerConfig.getModelConfig();
+        Long id = templateMakerConfig.getId();
+
+        return makeTemplate(meta, originProjectPath, templateMakerFileConfig, templateMakerModelConfig, id);
+    }
+
 }
 
